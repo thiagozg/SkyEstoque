@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+     <title><ui:insert name="titulo"/></title>
+     <link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/images/favicon.ico" />
+      <!-- CSS para mudar a interface do Primefaces -->
+     <link type="text/css" rel="stylesheet" href=
+"#{facesContext.externalContext.requestContextPath}/stylesheet/default.css" />
+</h:head>      
+<h:body>
+     <p:layout fullPage="true">
+       <p:layoutUnit position="north" size="160"
+            header="Controle de Estoque">
+            <p:graphicImage value="#{facesContext.externalContext.requestContextPath}/../images/logo.png"
+               title="Logotipo do Sistema" />
+       </p:layoutUnit>
+       <p:layoutUnit position="south" header=
+          "Contato: thiagozg1995@gmail.com ou (11) 97484-1661">
+         <a href="https://github.com/thiagozg/Skywalker-Estoque" target="_blank">
+         	<h:outputText 
+            value="Código Fonte: https://github.com/thiagozg/Skywalker-Estoque" />
+         </a>
+       </p:layoutUnit>
+       <p:layoutUnit position="center">
+           <ui:insert name="conteudo" />
+       </p:layoutUnit>    
+     </p:layout>
+</h:body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+<!-- carregando o template -->
+<ui:composition template="/templates/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  alterando o title da pagina -->
+	<ui:define name="titulo">Fornecedores</ui:define>
+	<!--  Definindo o conteudo -->
+	<ui:define name="conteudo">
+		<p:messages id="messages" />
+		<h:body>
+			<h:form id="frmfornec">
+				<p:focus for="nome" />
+				<h:inputHidden id="id" value="#{fornecedorBean.fornecedor.id}" />
+				<p:panel id="panelFornecedor" header="Cadastro de Fornecedores">
+					<p:panelGrid id="pnGFornecedor" columns="2">
+						<p:outputLabel for="codigo" value="Código:" 
+						 rendered ="#{fornecedorBean.fornecedor.id != 0}"/>
+						<p:inputText id="codigo" value="#{fornecedorBean.fornecedor.id}"
+						    rendered ="#{fornecedorBean.fornecedor.id != 0}"
+							disabled="true" title="Campo obrigatório gerado pelo sistema">
+						</p:inputText>
+						<p:outputLabel for="nome" value="Nome:" />
+						<p:inputText id="nome" value="#{fornecedorBean.fornecedor.nome}"
+							required="true" label="Nome do Fornecedor" size="20"
+							requiredMessage="Campo Obrigatório. Informe o nome do Fornecedor">
+							<f:validateLength minimum="1" maximum="20" />
+							<p:watermark for="nome" value="Nome do Fornecedor" />
+							<p:tooltip for="nome" value="Informe o nome do fornecedor"
+								showEffect="slide" showEvent="focus" />
+						</p:inputText>
+						
+						<p:outputLabel for="endereco" value="Endereço:" />
+						<p:inputText id="endereco" value="#{fornecedorBean.fornecedor.endereco}"
+							required="true" label="Endereco do Fornecedor" size="60"
+							requiredMessage="Campo Obrigatório. Informe o endereco do Fornecedor">
+							<f:validateLength minimum="1" maximum="60" />
+							<p:watermark for="endereco" value="Endereco do Fornecedor" />
+							<p:tooltip for="endereco" value="Informe o endereco do fornecedor"
+								showEffect="slide" showEvent="focus" />
+						</p:inputText>
+						
+						<p:outputLabel for="telefone" value="Telefone:" />
+						<p:inputText id="telefone" value="#{fornecedorBean.fornecedor.telefone}"
+							required="true" label="Telefone do Fornecedor" size="9"
+							requiredMessage="Campo Obrigatório. Informe o telefone do Fornecedor">
+							<f:validateLength minimum="8" maximum="9" />
+							<p:watermark for="telefone" value="Telefone do Fornecedor" />
+							<p:tooltip for="telefone" value="Digite apenas números"
+								showEffect="slide" showEvent="focus" />
+						</p:inputText>
+
+
+						<p:commandButton id="btnSalvar" update="@form" ajax="false"
+							icon="ui-icon-disk"
+							action="#{fornecedorBean.salva(fornecedorBean.fornecedor)}" value="Salvar" />
+						<p:commandButton id="btnCancelar" update="@form" ajax="false"
+							icon="ui-icon-cancel" immediate="true"
+							action="/restrito/_listafornec.jsf" value="Cancelar" />
+
+					</p:panelGrid>
+					<f:facet name="footer">
+						<h:outputText
+							value="Campos com * são de preenchimento obrigatório" />
+							
+					</f:facet>
+				</p:panel>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

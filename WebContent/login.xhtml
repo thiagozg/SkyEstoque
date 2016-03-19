@@ -1,0 +1,28 @@
+<!-- carregando o template -->
+<ui:composition template="/templates/principal.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  alterando o title da pagina -->
+	<ui:define name="titulo">Área de Login</ui:define>
+	<!--  Definindo o conteudo -->
+	<ui:define name="conteudo">
+		<p:growl />
+		<p:fieldset legend="Acesso Restrito">
+			<h:form id="formLogin">
+			<p:panel>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="login" value="Login do Usuário" />
+					<p:inputText id="login" required="true" size="20" value="#{loginBean.usuario.login}" />
+					<p:outputLabel for="senha" value="Senha" />
+					<p:password id="senha" required="true" value="#{loginBean.usuario.senha}" />
+				</p:panelGrid>
+				<p:commandButton type="submit" value="Acessar" ajax="false" icon="login" action="#{loginBean.login}" />
+				<f:facet name="footer"><h:outputText value="Campos com * são obrigatórios" /></f:facet>
+			</p:panel>
+			</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>

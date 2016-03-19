@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+org.jboss.tools.openshift.ApplicationId=56df21a089f5cf4ddb0000aa
+org.jboss.tools.openshift.ApplicationName=skyestoque
+org.jboss.tools.openshift.Connection=https\://thiagozg1995%40gmail.com@openshift.redhat.com
+org.jboss.tools.openshift.DeployFolder=deployments
+org.jboss.tools.openshift.Domain=thiagozg
+org.jboss.tools.openshift.RemoteName=openshift

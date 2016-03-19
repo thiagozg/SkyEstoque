@@ -1,0 +1,86 @@
+<!-- carregando o template -->
+<ui:composition template="/templates/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  alterando o title da pagina -->
+	<ui:define name="titulo">Usuarios</ui:define>
+	<!--  Definindo o conteudo -->
+	<ui:define name="conteudo">
+		<p:messages id="messages" />
+		<h:body>
+			<h:form id="frmusuario" enctype="multipart/form-data">
+			
+				<p:focus for="login" />
+				
+				<p:panel id="panelUsuario" header="Cadastro de Usuarios">
+					<p:panelGrid id="pnGUsuario" columns="2">
+						
+                
+                <h:outputLabel for="login" value="Login:" />  
+                <p:inputText id="login" value="#{usuarioBean.usuario.login}" required="true" label="Nome do Usuário (login)" size="30"
+                             title="Campo Obrigatório. Informe o login (nome) do usuario">  
+                <f:validateLength minimum="2" maximum="50" />
+                <p:tooltip for="login" showEvent="focus" hideEvent="blur" />    
+                </p:inputText>
+                               
+                <h:outputLabel for="senha" value="Senha:*" />  
+                <p:password id="senha" value="#{usuarioBean.usuario.senha}" required="true" label="Senha" size="18" match="confirmasenha"
+                            promptLabel="Informe a senha do usuário com no mínimo 7 caracteres. Para maior segurança, procure inserir números e letras, maúsculo e minúsculo" 
+                            weakLabel="Para maior segurança, procure adicionar letras e números a sua senha"
+                            goodLabel="Para maior segurança, procure adicionar três caracteres maiúsculo" 
+                            strongLabel="A sua senha possui todos os requisitos de segurança!" 
+                            feedback="true" 
+                            inline="true"
+                            validatorMessage="A senha e a confirmação informados são diferentes!"
+                            title="Campo Obrigatório. Informe a senha do usuário.">  
+                <f:validateLength minimum="7" maximum="15" />   
+                <p:tooltip for="senha" showEvent="focus" hideEvent="blur" />
+                </p:password>
+                <h:outputLabel for="confirmasenha" value="Confirmação da Senha:*" />  
+                <p:password id="confirmasenha" value="#{usuarioBean.usuario.senha}" required="true" label="Confirmação da Senha" size="18" 
+                            feedback="false" 
+                             title="Campo Obrigatório. Informe a senha do usuário.">  
+                <f:validateLength minimum="7" maximum="15" />               
+                <p:tooltip for="confirmasenha" showEvent="focus" hideEvent="blur" />
+                </p:password>
+                <h:outputLabel for="status" value="Status do Usuário:*" />  
+                <p:selectOneRadio id="status" value="#{usuarioBean.usuario.status}" 
+                                  title="Campo Obrigatório. Selecione o status do usuário" required="true" 
+                                  label="Status do Usuário">  
+                             <f:selectItem itemLabel="Ativo" itemValue="Ativo" selected="true"  />  
+                             <f:selectItem itemLabel="Inativo" itemValue="Inativo"  />    
+                <p:tooltip for="status" showEvent="focus" hideEvent="blur" /> 
+                </p:selectOneRadio> 
+                 
+                <h:outputLabel for="foto" value="Arquivo de Imagem: " />
+                <p:fileUpload id="foto" fileUploadListener="#{usuarioBean.uploadAction}"  label="Escolher"
+                              mode="advanced"  invalidSizeMessage="Tamanho maior que o permitido (512Kb)!" invalidFileMessage="Extensão não Permitida"  
+                              uploadLabel="Carregar Arquivo" cancelLabel = "Cancelar"  auto="false"  dragDropSupport="true" update="fotoatual"
+                              sizeLimit="524288"  description = "Selecione a imagem"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+               <h:outputLabel for="foto" value="Foto: " />
+<p:graphicImage  value="/upload/#{usuarioBean.usuario.nomearquivo}" id="fotoatual" 
+                 cache="false" width="75" height="100"
+                 title="Foto do usuário #{usuarioBean.usuario.login}" />
+                
+						<p:commandButton id="btnSalvar" ajax="false"
+							icon="ui-icon-disk"
+							action="#{usuarioBean.salva(usuarioBean.usuario)}" value="Salvar" />
+ 
+						<p:commandButton id="btnCancelar" update="@form" ajax="false"
+							icon="ui-icon-cancel" immediate="true"
+							action="/restrito/_listausuario.jsf" value="Cancelar" />
+
+					</p:panelGrid>
+					<f:facet name="footer">
+						<h:outputText
+							value="Campos com * são de preenchimento obrigatório" />
+							
+					</f:facet>
+				</p:panel>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

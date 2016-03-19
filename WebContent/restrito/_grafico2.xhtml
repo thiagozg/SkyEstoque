@@ -1,0 +1,31 @@
+<!-- carregando o template -->
+<ui:composition template="/templates/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  alterando o title da pagina -->
+	<ui:define name="titulo">Produto x Fornecedor</ui:define>
+	<!--  Definindo o conteudo -->
+	<ui:define name="conteudo">
+		<h:form id="f_grafico">
+			<p:toolbar>
+				<p:toolbarGroup align="center">
+					<h:outputText value="Gráfico - Quantidade de Produtos por Grupo"
+						style="color:#000000; font-size: 16px;" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<!--  Mensagens do Sistema -->
+			<p:messages id="messages" showDetail="false" autoUpdate="true"
+				closable="true" />
+			<p:panelGrid id="infosempresaUpd" columns="2" cellpadding="6">
+				<p:pieChart id="graficoGrupo" value="#{chartBean2.pieModel}"
+					legendPosition="e" fill="true" showDataLabels="true"
+					title="Gráfico - Quantidade de Produtos por Grupo"
+					style="width:400px;height:400px" dataFormat="value"
+					sliceMargin="10" diameter="200" />
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

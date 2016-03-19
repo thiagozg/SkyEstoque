@@ -1,0 +1,49 @@
+@CHARSET "ISO-8859-1";
+/* mudando o tamanho da fonte padrao */
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+/* imagem do botao */
+.login {
+ background-image: url("../images/login.png") !important;
+}
+.calcula {
+ background-image: url("../images/calcular.png") !important;
+}
+.marca {
+ background-image: url("../images/ford.png") !important;
+}
+.usuario {
+ background-image: url("../images/usuarios.png") !important;
+}
+.modelo {
+ background-image: url("../images/carro.png") !important;
+}
+.fornecedor { background-image: url("../images/fornecedor.png") !important;}
+.grupos { background-image: url("../images/grupo.png") !important;}
+.produtos { background-image: url("../images/produto.png") !important;}
+.mais { background-image: url("../images/mais.png") !important;}
+.menos { background-image: url("../images/menos.png") !important;}
+.listar { background-image: url("../images/lista.png") !important;}
+.grafico { background-image: url("../images/grafico.png") !important;}
+.logout { background-image: url("../images/logout.png") !important;}
+
+/* cabecalho do datatable */
+.ui-sortable-column {
+	font-size: 70% !important;
+}
+
+/* Grid Zebrada */
+.linha-par {
+    background: #F0FFF0;
+}
+
+.linha-impar {
+    background: #EEEEEE;
+}
+
+/* Grid do PanelGrid */
+.ui-panelgrid td {
+border-width: 0;
+}

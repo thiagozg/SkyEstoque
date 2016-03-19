@@ -1,0 +1,95 @@
+<!--  
+	Redered no submenu "Gerencial" = apenas o usuario admin poderão ver aquele menu
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="titulo" /></title>
+	<link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/images/favicon.ico" />
+	<!--   Carregando o locale do Primefaces -->
+	<script type="text/javascript" src="../js/locale.js"></script>
+	 <!-- CSS para mudar a interface do Primefaces -->
+     <link type="text/css" rel="stylesheet" href=
+"#{facesContext.externalContext.requestContextPath}/stylesheet/default.css" />
+</h:head>
+
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="160"
+			header="Controle de Estoque">
+			<p:graphicImage value="#{facesContext.externalContext.requestContextPath}/../images/logo.png" title="Logotipo do Sistema" />
+			<p:spacer width="50" />
+			<h:outputText value="Usuário: " />
+			<h:outputText value="#{session.getAttribute('usuario_nome')}" />
+
+		</p:layoutUnit>
+		<p:layoutUnit position="south" header=
+          "Contato: thiagozg1995@gmail.com ou (11) 97484-1661">
+         <a href="https://github.com/thiagozg/Skywalker-Estoque" target="_blank">
+         	<h:outputText 
+            value="Código Fonte: https://github.com/thiagozg/Skywalker-Estoque" />
+         </a>
+        </p:layoutUnit>
+		<p:layoutUnit position="west" header="Menu Principal"
+			collapsible="true" size="200">
+			<!-- Menu -->
+			<h:form>
+				<p:panelMenu>
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Usuários" title="Cadastro de usuários do sistema"							
+							icon="usuario"
+							url="#{facesContext.externalContext.requestContextPath}/../restrito/_listausuario.jsf" />
+						<p:menuitem value="Fornecedores" title="Cadastro de fornecedores"
+							icon="fornecedor"
+							url="#{facesContext.externalContext.requestContextPath}/../restrito/_listafornec.jsf" />
+						<p:menuitem value="Grupos de Produtos" title="Cadastro dos Grupos de produtos"
+							icon="grupos"
+							url="#{facesContext.externalContext.requestContextPath}/../restrito/_listagrupo.jsf" />
+						<p:menuitem value="Produtos" title="Cadastro de produtos"
+							icon="produtos"
+							url="#{facesContext.externalContext.requestContextPath}/../restrito/_listaproduto.jsf" />
+					</p:submenu>
+					
+					<p:submenu label="Gerenciador">
+						<p:menuitem value="Listar Estoque" title="Listar estoque"
+							icon="listar"
+							url="#{facesContext.externalContext.requestContextPath}/../restrito/_listaestoque.jsf" />	
+						<p:menuitem value="Produto x Fornecedor" title="Grafico 1"
+							icon="grafico"
+							url="#{facesContext.externalContext.requestContextPath}/../restrito/_grafico1.jsf" />
+						<p:menuitem value="Produto x Grupo" title="Grafico 2"
+							icon="grafico"
+							url="#{facesContext.externalContext.requestContextPath}/../restrito/_grafico2.jsf" />
+					</p:submenu>
+					<p:submenu label="Sair">
+						<p:menuitem value="Logout" icon="logout" action="#{loginBean.logout}" />
+					</p:submenu>
+				</p:panelMenu>
+			</h:form>
+
+		</p:layoutUnit>
+
+
+		<p:layoutUnit position="center">
+			<ui:insert name="conteudo" />
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

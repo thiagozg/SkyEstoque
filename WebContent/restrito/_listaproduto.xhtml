@@ -1,0 +1,127 @@
+<!-- carregando o template -->
+<ui:composition template="/templates/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  alterando o title da pagina -->
+	<ui:define name="titulo">Listar Produtos</ui:define>
+	<!--  Definindo o conteudo -->
+	<ui:define name="conteudo">
+		<p:growl id="messages" sticky="false" life="3000" />
+		<p:toolbar>
+			<p:toolbarGroup align="left">
+				<h:form id="frmInclusao">
+
+					<p:commandButton id="btnInclusao" ajax="false"
+						icon="ui-icon-document" action="/restrito/_addproduto.jsf"
+						value="Incluir" />
+				</h:form>
+
+			</p:toolbarGroup>
+
+			<p:toolbarGroup align="right">
+				<h:form id="frmLogout">
+					<p:commandButton id="btnMenu" ajax="false" icon="ui-icon-home"
+						action="/restrito/_menu.jsf" value="Menu Inicial" />
+
+					<p:commandButton id="btnLogout" ajax="false" icon="ui-icon-close"
+						action="#{loginBean.logout}" value="Logout" />
+				</h:form>
+			</p:toolbarGroup>
+		</p:toolbar>
+		<h:form id="frmlistaproduto">
+			<p:dataTable id="tabela" var="produto" value="#{produtoBean.produtos}"
+				paginator="true" rows="8"
+				emptyMessage="Não há nenhum registro para ser exibido"
+				filteredValue="#{produtoBean.filtroProdutos}" rendered="true"
+				currentPageReportTemplate="(Exibindo o registro {startRecord}  de {totalRecords} - página {currentPage} de {totalPages})"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
+				paginatorPosition="bottom" resizableColumns="false"
+				rowIndexVar="rowIx"
+				rowStyleClass="#{rowIx mod 2 ne 0 ? 'linha-par' : 'l'}">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText
+							value="Para filtrar o registro desejado, digite o valor nos campos abaixo: " />
+					</p:outputPanel>
+				</f:facet>
+				<p:column id="id" sortBy="#{produto.id}" style="width:15%"
+					filterBy="#{produto.id}" filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Código" />
+					</f:facet>
+					<h:outputText value="#{produto.id}" />
+				</p:column>
+				<p:column id="nome" sortBy="#{produto.nome}"
+					style="width:65%" filterBy="#{produto.nome}"
+					filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:outputText value="#{produto.nome}" />
+				</p:column>
+				<p:column id="fornecedor" sortBy="#{produto.fornecedor.nome}"
+					style="width:65%" filterBy="#{produto.fornecedor.nome}"
+					filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Fornecedor" />
+					</f:facet>
+					<h:outputText value="#{produto.fornecedor.nome}" />
+				</p:column>
+				<p:column id="grupo" sortBy="#{produto.grupo.nome}"
+					style="width:65%" filterBy="#{produto.grupo.nome}"
+					filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Grupos" />
+					</f:facet>
+					<h:outputText value="#{produto.grupo.nome}" />
+				</p:column>
+				<p:column exportable="false">
+					<f:facet name="header">
+						<h:outputText value="Opcoes" />
+					</f:facet>
+
+					<p:commandButton id="btnAlteracao" update="@form" ajax="false"
+						icon="ui-icon-pencil" action="#{produtoBean.altera}" value="Alterar">
+						<f:setPropertyActionListener target="#{produtoBean.produto}"
+							value="#{produto}" />
+					</p:commandButton>
+					<p:commandButton id="btnExcluir" update="@form" ajax="false"
+						icon="ui-icon-trash" action="#{produtoBean.excluir(produto)}" value="Excluir">
+						<f:setPropertyActionListener target="#{produtoBean.produto}"
+							value="#{produto}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog id="confirma" widgetVar="confirmacao" header="Confirmar"
+				message="Confirma a exclusao do registro #{produto.nome}?" severity="alert"
+				resizable="false" modal="true" showEffect="fade" hideEffect="bounce"
+				appendToBody="true">
+				<p:commandButton id="btnExclusao" update="tabela"
+					icon="ui-icon-circle-check" process="@this"
+					oncomplete="confirmacao.hide()"
+					action="#{produtoBean.excluir(produto)}" value="Sim" />
+
+				<p:commandButton value="Não" onclick="confirmacao.hide()"
+					icon="ui-icon-circle-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,137 @@
+<!-- carregando o template -->
+<ui:composition template="/templates/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  alterando o title da pagina -->
+	<ui:define name="titulo">Listar Usuários</ui:define>
+	<!--  Definindo o conteudo -->
+	<ui:define name="conteudo">
+		<p:growl id="messages" sticky="false" life="3000" />
+		<p:toolbar>
+			<p:toolbarGroup align="left">
+				<h:form id="frmInclusao">
+
+					<p:commandButton id="btnInclusao" ajax="false"
+						icon="ui-icon-document" action="/restrito/_usuario.jsf"
+						value="Incluir" />
+				</h:form>
+
+			</p:toolbarGroup>
+
+			<p:toolbarGroup align="right">
+				<h:form id="frmLogout">
+					<p:commandButton id="btnMenu" ajax="false" icon="ui-icon-home"
+						action="/restrito/_menu.jsf" value="Menu Inicial" />
+
+					<p:commandButton id="btnLogout" ajax="false" icon="ui-icon-close"
+						action="#{loginBean.logout}" value="Logout" />
+				</h:form>
+			</p:toolbarGroup>
+		</p:toolbar>
+		<h:form id="frmlistausuario">
+			<p:dataTable id="tabela" var="usuario" value="#{usuarioBean.usuarios}"
+				paginator="true" rows="8"
+				emptyMessage="Não há nenhum registro para ser exibido"
+				filteredValue="#{usuarioBean.filtroUsuarios}" rendered="true"
+				currentPageReportTemplate="(Exibindo o registro {startRecord}  de {totalRecords} - página {currentPage} de {totalPages})"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
+				paginatorPosition="bottom" resizableColumns="false"
+				rowIndexVar="rowIx"
+				rowStyleClass="#{rowIx mod 2 ne 0 ? 'odd-row' : 'even-row'}">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText
+							value="Para filtrar o registro desejado, digite o valor nos campos abaixo: " />
+					</p:outputPanel>
+				</f:facet>
+				<p:column id="id" sortBy="#{usuario.id}" style="width:15%"
+					filterBy="#{usuario.id}" filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Código" />
+					</f:facet>
+					<h:outputText value="#{usuario.id}" />
+				</p:column>
+				<p:column id="login" sortBy="#{usuario.login}"
+					style="width:25%" filterBy="#{usuario.login}"
+					filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Login" />
+					</f:facet>
+					<h:outputText value="#{usuario.login}" />
+				</p:column>
+		<p:column id="status" sortBy="#{usuario.status}"
+					style="width:25%" filterBy="#{usuario.status}"
+					filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Status" />
+					</f:facet>
+					<h:outputText value="#{usuario.status}" />
+				</p:column>
+				<p:column id="foto" exportable="false" >
+					<f:facet name="header">Foto</f:facet>					
+			        <p:graphicImage id="img" value=".././upload/#{usuario.nomearquivo}" width="50px" height="50px" title="Imagem do usuario #{usuario.login}" />
+			        <h:outputLink id="lnk_zoomin" value="javascript:void(0)">
+				        <p:graphicImage id="zoomin" value ="../images/zoom-in.png" title="Clique aqui para ampliar a imagem"/>				
+				        <p:effect type="size" event="click" for="img" >
+				             <f:param name="to" value="{width:200, height: 200}" />
+				        </p:effect>
+			        </h:outputLink>
+			        <h:outputLink id="lnk_zoomout" value="javascript:void(0)">
+			            <p:graphicImage id="zoomout" value ="../images/zoom-out.png" title="Clique aqui para voltar a imagem ao tamanho original" />				
+			            <p:effect type="size" event="click" for="img" >
+			                 <f:param name="to" value="{width:50, height: 50}" />
+			            </p:effect>
+			        </h:outputLink>
+		  </p:column>
+				<p:column exportable="false">
+					<f:facet name="header">
+						<h:outputText value="Opcoes" />
+					</f:facet>
+
+					<p:commandButton id="btnAlteracao" update="@form" ajax="false"
+						icon="ui-icon-pencil" action="#{usuarioBean.altera}" value="Alterar">
+						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+							value="#{usuario}" />
+					</p:commandButton>
+					<p:commandButton id="btnExcluir" update="@form" ajax="false"
+						icon="ui-icon-trash" action="#{usuarioBean.excluir(usuario)}" value="Excluir">
+						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+							value="#{usuario}" />
+					</p:commandButton>
+					</p:column>
+
+
+			</p:dataTable>
+			<p:confirmDialog id="confirma" widgetVar="confirmacao" header="Confirmar"
+				message="Confirma a exclusao do registro #{usuario.login}?" severity="alert"
+				resizable="false" modal="true" showEffect="fade" hideEffect="bounce"
+				appendToBody="true">
+				<p:commandButton id="btnExclusao" update="tabela"
+					icon="ui-icon-circle-check" process="@this"
+					oncomplete="confirmacao.hide()"
+					action="#{usuarioBean.excluir(usuario)}" value="Sim" />
+
+				<p:commandButton value="Não" onclick="confirmacao.hide()"
+					icon="ui-icon-circle-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

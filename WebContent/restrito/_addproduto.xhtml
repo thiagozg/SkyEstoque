@@ -1,0 +1,96 @@
+<!-- carregando o template -->
+<ui:composition template="/templates/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  alterando o title da pagina -->
+	<ui:define name="titulo">Produtos</ui:define>
+	<!--  Definindo o conteudo -->
+	<ui:define name="conteudo">
+		<p:messages id="messages" />
+		<h:body>
+			<h:form id="frmproduto">
+				<p:focus for="nome" />
+				<h:inputHidden id="id" value="#{produtoBean.produto.id}" />
+				<p:panel id="panelProduto" header="Cadastro de Produtos">
+					<p:panelGrid id="pnGProduto" columns="2">
+						<p:outputLabel for="codigo" value="Código:" 
+						 rendered ="#{produtoBean.produto.id != 0}"/>
+						<p:inputText id="codigo" value="#{produtoBean.produto.id}"
+						    rendered ="#{produtoBean.produto.id != 0}"
+							disabled="true" title="Campo obrigatório gerado pelo sistema">
+						</p:inputText>
+						<p:outputLabel for="nome" value="Nome:" />
+						<p:inputText id="nome" value="#{produtoBean.produto.nome}"
+							required="true" label="Nome do Produto" size="20"
+							requiredMessage="Campo Obrigatório. Informe o nome do Produto">
+							<f:validateLength minimum="1" maximum="20" />
+							<p:watermark for="nome" value="Nome do Produto" />
+							<p:tooltip for="nome" value="Informe o nome do produto"
+								showEffect="slide" showEvent="focus" />
+						</p:inputText>
+						
+						<p:outputLabel for="descricao" value="Descrição:" />
+						<p:inputText id="descricao" value="#{produtoBean.produto.descricao}"
+							required="true" label="Descrição do Produto" size="60"
+							requiredMessage="Campo Obrigatório. Informe o descricao do Produto">
+							<f:validateLength minimum="1" maximum="60" />
+							<p:watermark for="descricao" value="Descrição do Produto" />
+							<p:tooltip for="descricao" value="Informe o descricao do produto"
+								showEffect="slide" showEvent="focus" />
+						</p:inputText>
+						
+						<p:outputLabel for="quantidade" value="Quantidade:" />
+						<p:inputText id="quantidade" value="#{produtoBean.produto.quantidade}"
+							required="true" label="Quantidade do Produto" size="20"
+							requiredMessage="Campo Obrigatório. Informe a quantidade do Produto">
+							<f:validateLength minimum="1" maximum="20" />
+							<p:watermark for="quantidade" value="Quantidade do Produto" />
+							<p:tooltip for="quantidade" value="Informe a quantidade do produto"
+								showEffect="slide" showEvent="focus" />
+						</p:inputText>
+						
+						<p:outputLabel for="grupo" value="Grupo:" />
+						<p:selectOneMenu id="grupo" effect="fold" value="#{produtoBean.produto.grupo}"
+						converter="conversorPadrao" required="true" requiredMessage="Campo Obrigatório. Informe o grupo do Produto">
+							<f:selectItems value="#{grupoBean.grupos}" var="itemGrupo" itemLabel="#{itemGrupo.nome}" itemValue="#{itemGrupo}" />
+							<p:tooltip for="grupo" value="Selecione o Grupo a qual o produto pertence" showEffect="slide" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="fornecedor" value="Fornecedor:" />
+						<p:selectOneMenu id="fornecedor" effect="fold" value="#{produtoBean.produto.fornecedor}"
+						converter="conversorPadrao" required="true" requiredMessage="Campo Obrigatório. Informe o fornecedor do Produto">
+							<f:selectItems value="#{fornecedorBean.fornecedores}" var="itemFornec" itemLabel="#{itemFornec.nome}" itemValue="#{itemFornec}" />
+							<p:tooltip for="fornecedor" value="Selecione o Fornecedor referente ao produto" showEffect="slide" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="valor" value="Valor:" />
+						<p:inputText id="valor" value="#{produtoBean.produto.valor}"
+							required="true" label="Valor do Produto" size="20"
+							requiredMessage="Campo Obrigatório. Informe o valor do Produto">
+							<f:validateLength minimum="1" maximum="20" />
+							<p:watermark for="valor" value="Valor do Produto" />
+							<p:tooltip for="valor" value="Informe o valor do produto"
+								showEffect="slide" showEvent="focus" />
+						</p:inputText>
+										
+						<p:commandButton id="btnSalvar" update="@form" ajax="false"
+							icon="ui-icon-disk"
+							action="#{produtoBean.salva(produtoBean.produto)}" value="Salvar" />
+						<p:commandButton id="btnCancelar" update="@form" ajax="false"
+							icon="ui-icon-cancel" immediate="true"
+							action="/restrito/_listaproduto.jsf" value="Cancelar" />
+
+					</p:panelGrid>
+					<f:facet name="footer">
+						<h:outputText
+							value="Campos com * são de preenchimento obrigatório" />
+							
+					</f:facet>
+				</p:panel>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>
